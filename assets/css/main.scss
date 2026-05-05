@@ -200,28 +200,88 @@ code.highlighter-rouge {
   font-weight: 500;
 }
 
-// --- 記事一覧カード（note.com風） ---
+// --- 記事一覧カード（note.com風グリッド） ---
+
+// グリッドコンテナを2カラムに上書き
+.entries-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 1.5em !important;
+  margin: 0 !important;
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr !important;
+    gap: 1em !important;
+  }
+}
+
+// カードスタイル
+.entries-grid .archive__item,
+.list__item .archive__item {
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: box-shadow 0.2s, transform 0.2s;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  &:hover {
+    box-shadow: 0 6px 20px rgba(0,0,0,0.10);
+    transform: translateY(-3px);
+  }
+}
+
+// サムネイル画像
+.entries-grid .archive__item-teaser,
+.list__item .archive__item-teaser {
+  width: 100%;
+  height: 190px;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0;
+    box-shadow: none;
+    margin: 0;
+    display: block;
+    transition: transform 0.35s ease;
+  }
+
+  &:hover img {
+    transform: scale(1.04);
+  }
+}
+
+// タイトル・抜粋のパディング
+.entries-grid .archive__item-title,
+.list__item .archive__item-title {
+  font-size: 0.98em;
+  font-weight: 700;
+  line-height: 1.55;
+  margin: 0.9em 1.1em 0.4em;
+  letter-spacing: -0.01em;
+  a {
+    color: #1a1a1a;
+    &:hover { color: #555; text-decoration: none; }
+  }
+}
+
+.entries-grid .archive__item-excerpt,
+.list__item .archive__item-excerpt {
+  font-size: 0.82em;
+  line-height: 1.75;
+  color: #777;
+  margin: 0 1.1em 1.1em;
+}
+
+// リスト表示（list__item）の既存スタイルをリセット
 .list__item {
-  padding: 1.6em 0;
-  border-bottom: 1px solid #ebebeb;
-
-  .archive__item-title {
-    font-size: 1.05em;
-    font-weight: 900;
-    line-height: 1.5;
-    margin-bottom: 0.5em;
-    letter-spacing: -0.01em;
-    a {
-      color: #1a1a1a;
-      &:hover { color: #555; text-decoration: none; }
-    }
-  }
-
-  .archive__item-excerpt {
-    font-size: 0.9em;
-    line-height: 1.85;
-    color: #666;
-  }
+  padding: 0;
+  border-bottom: none;
 }
 
 // --- タグ・カテゴリバッジ ---

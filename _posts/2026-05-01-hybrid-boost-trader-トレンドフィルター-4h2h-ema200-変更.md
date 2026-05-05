@@ -6,6 +6,10 @@ notion_id: 3578f0b7-804f-81e7-8822-f52bc392302a
 categories: [レポート]
 tags: [EMA200, トレンドフィルター, Python]
 excerpt: "hybrid_boost_traderのトレンドフィルター足種を4時間足から2時間足EMA200に変更した実装ログ。"
+header:
+  teaser: /assets/images/trend-filter-pnl.png
+  overlay_image: /assets/images/trend-filter-pnl.png
+  overlay_filter: 0.4
 ---
 
 実装変更の記録としてログを残しておく。

@@ -6,6 +6,9 @@ lang: ja
 
 remote_theme: "mmistakes/minimal-mistakes@4.26.2"
 
+include:
+  - _pages
+
 plugins:
   - jekyll-remote-theme
   - jekyll-feed
@@ -24,6 +27,11 @@ author:
 
 # サイト全体のデフォルト設定
 defaults:
+  - scope:
+      path: "_pages"
+    values:
+      layout: single
+      author_profile: true
   - scope:
       path: ""
       type: posts

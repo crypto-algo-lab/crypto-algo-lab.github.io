@@ -6,6 +6,10 @@ notion_id: 3578f0b7-804f-81ce-9911-da8c49c26521
 categories: [レポート]
 tags: [LightGBM, Python, ダッシュボード, 最適化]
 excerpt: "LightGBMフィルター統合・対象通貨を大型5ペアに絞り込み・ダッシュボードの視認性改善をまとめて実施した記録。"
+header:
+  teaser: /assets/images/walkforward-result.png
+  overlay_image: /assets/images/walkforward-result.png
+  overlay_filter: 0.4
 ---
 
 このバージョンでの主な変更点を3つまとめて記録しておく。
