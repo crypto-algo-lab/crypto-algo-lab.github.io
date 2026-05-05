@@ -1,5 +1,5 @@
-title: "Crypto Algo Lab"
-description: "暗号資産アルゴリズム取引の開発記録 — LightGBM × テクニカル分析 × Coincheck"
+title: "おやじのAI投資ラボ"
+description: "AIを活用した暗号資産自動売買Botの開発・運用記録 — 試行錯誤しながらコツコツ改良中"
 baseurl: "/crypto-algo-lab-blog"
 url: "https://mspj0123.github.io"
 lang: ja
@@ -15,7 +15,7 @@ plugins:
 # 著者情報
 author:
   name: "mspj0123"
-  bio: "暗号資産アルゴリズム取引Botを開発・運用中。LightGBM × テクニカル分析 × Coincheck API。実運用の記録を発信しています。"
+  bio: "AIを使って暗号資産自動売買Botを開発・運用中のおやじ。失敗も含めてリアルな記録を発信しています。"
   links:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
