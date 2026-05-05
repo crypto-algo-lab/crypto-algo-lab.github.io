@@ -14,7 +14,7 @@ import requests
 
 NOTION_TOKEN = os.environ.get("NOTION_TOKEN", "")
 NOTION_DATABASE_ID = os.environ.get(
-    "NOTION_DATABASE_ID", "3548f0b7-804f-818e-9ecb-e90a8741cb50"
+    "NOTION_DATABASE_ID", "a698ec5e-99c7-442b-a4bf-af8b2c4dfe51"
 )
 POSTS_DIR = os.path.join(os.path.dirname(__file__), "..", "_posts")
 
@@ -53,17 +53,19 @@ def create_notion_page(fm: dict, body: str) -> str:
 
     properties = {
         "タイトル": {"title": [{"text": {"content": title}}]},
-        "ブログ掲載": {"checkbox": True},
+        "ステータス": {"select": {"name": "公開済"}},
+        "更新タイプ": {"select": {"name": "新規追加"}},
+        "公開先": {"multi_select": [{"name": "GitHub Pages"}]},
     }
 
     if date_str:
-        properties["日付"] = {"date": {"start": date_str}}
+        properties["公開日"] = {"date": {"start": date_str}}
     if first_cat:
         properties["カテゴリ"] = {"select": {"name": first_cat}}
     if tag_list:
-        properties["使用技術"] = {"multi_select": tag_list}
+        properties["タグ"] = {"multi_select": tag_list}
     if excerpt:
-        properties["ブログ下書き用メモ"] = {"rich_text": [{"text": {"content": excerpt[:2000]}}]}
+        properties["要約"] = {"rich_text": [{"text": {"content": excerpt[:2000]}}]}
 
     # 本文の冒頭200文字をNotionページ本文として登録
     children = []

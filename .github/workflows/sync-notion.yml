@@ -30,7 +30,7 @@ jobs:
       - name: Sync Notion posts
         env:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
-          NOTION_DATABASE_ID: "3548f0b7-804f-818e-9ecb-e90a8741cb50"
+          NOTION_DATABASE_ID: "a698ec5e-99c7-442b-a4bf-af8b2c4dfe51"
         run: python scripts/sync_notion.py
 
       - name: Commit and push if changed

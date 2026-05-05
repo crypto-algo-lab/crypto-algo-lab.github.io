@@ -2,8 +2,8 @@
 Notionの開発ログDBとJekyllブログを双方向同期するスクリプト。
 
 動作仕様:
-  - ブログ公開=ON  → _posts/ にファイルを作成/更新
-  - ブログ公開=OFF → _posts/ からファイルを削除（非公開化）
+  - ステータスが「公開準備」または「公開済」 → _posts/ にファイルを作成/更新
+  - ステータスがそれ以外（下書き・レビュー・非公開化）→ _posts/ からファイルを削除
   - Notionから削除 → _posts/ からファイルを削除
 
 管理方法:
@@ -27,7 +27,7 @@ import requests
 
 NOTION_TOKEN = os.environ.get("NOTION_TOKEN", "")
 NOTION_DATABASE_ID = os.environ.get(
-    "NOTION_DATABASE_ID", "3548f0b7-804f-818e-9ecb-e90a8741cb50"
+    "NOTION_DATABASE_ID", "a698ec5e-99c7-442b-a4bf-af8b2c4dfe51"
 )
 POSTS_DIR = os.path.join(os.path.dirname(__file__), "..", "_posts")
 
@@ -131,11 +131,10 @@ def get_prop(props: dict, key: str) -> str:
     return ""
 
 
-def is_published(props: dict, has_publish_flag: bool, publish_key: str | None = None) -> bool:
-    """ブログ公開フラグがONかどうか判定する。"""
-    if not has_publish_flag or not publish_key:
-        return True
-    return get_prop(props, publish_key) == "True"
+def is_published(props: dict, **kwargs) -> bool:
+    """ステータスが「公開準備」または「公開済」の場合に公開と判定する。"""
+    status = get_prop(props, "ステータス")
+    return status in ("公開準備", "公開済")
 
 
 # ===== ローカルファイル管理 =====
@@ -162,20 +161,21 @@ def scan_notion_posts() -> dict[str, str]:
 def page_to_post(page: dict) -> tuple[str, str] | None:
     """Notionページ → (ファイル名, Markdownコンテンツ)"""
     props = page.get("properties", {})
-    title = get_prop(props, "タイトル") or get_prop(props, "Name")
+    title = get_prop(props, "タイトル")
     if not title:
         return None
 
-    date_str = get_prop(props, "日付")
+    date_str = get_prop(props, "公開日")
     if not date_str:
         created = page.get("created_time", "")
         date_str = created[:10] if created else datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
     categories = get_prop(props, "カテゴリ") or "開発ログ"
-    tags = get_prop(props, "使用技術") or ""
-    excerpt = get_prop(props, "ブログ下書き用メモ") or ""
+    tags = get_prop(props, "タグ") or ""
+    excerpt = get_prop(props, "要約") or ""
+    slug = get_prop(props, "slug") or ""
 
-    cat_list = "[" + ", ".join(c.strip() for c in categories.split(",")) + "]"
+    cat_list = "[" + categories.strip() + "]"
     tag_list = "[" + ", ".join(t.strip() for t in tags.split(",") if t.strip()) + "]" if tags else "[]"
     excerpt_line = f'excerpt: "{excerpt}"\n' if excerpt else ""
 
@@ -210,20 +210,6 @@ def main():
 
     os.makedirs(POSTS_DIR, exist_ok=True)
 
-    # DBプロパティ確認
-    try:
-        db_props = get_db_properties()
-        # "ブログ掲載" または "ブログ公開" のどちらかに対応
-        publish_key = None
-        for key in ("ブログ掲載", "ブログ公開"):
-            if key in db_props and db_props[key].get("type") == "checkbox":
-                publish_key = key
-                break
-        has_publish_flag = publish_key is not None
-    except Exception:
-        has_publish_flag = False
-        publish_key = None
-
     print(f"Notion DB ({NOTION_DATABASE_ID}) から全ページ取得中...")
     pages = get_all_pages()
     print(f"{len(pages)} 件取得")
@@ -239,7 +225,7 @@ def main():
         props = page.get("properties", {})
         notion_ids_in_db.add(page_id)
 
-        published = is_published(props, has_publish_flag, publish_key)
+        published = is_published(props)
         existing_path = local_notion_files.get(page_id)
 
         if not published:
