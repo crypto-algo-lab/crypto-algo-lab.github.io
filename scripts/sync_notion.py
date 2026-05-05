@@ -250,9 +250,14 @@ def main():
         # 既存ファイルと内容比較
         if os.path.exists(filepath):
             with open(filepath, encoding="utf-8") as f:
-                if f.read() == content:
-                    skipped += 1
-                    continue
+                existing = f.read()
+            if existing == content:
+                skipped += 1
+                continue
+            # Notion本文が空のとき（フロントマターのみ）はローカルを保持
+            if not body.strip():
+                skipped += 1
+                continue
             with open(filepath, "w", encoding="utf-8") as f:
                 f.write(content)
             print(f"  更新: {filename}")

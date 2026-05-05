@@ -328,3 +328,43 @@ code.highlighter-rouge {
     border-color: #1a1a1a;
   }
 }
+
+// --- レスポンシブ（スマホ対応） ---
+@media (max-width: 768px) {
+  #main {
+    padding: 1.2em 1em;
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .page__title {
+    font-size: 1.4em;
+    letter-spacing: -0.01em;
+  }
+
+  .page__content {
+    h2 {
+      font-size: 1.1em;
+      margin-top: 2em;
+    }
+    h3 {
+      font-size: 1.0em;
+    }
+  }
+
+  .page__content table {
+    font-size: 0.8em;
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .author__avatar img {
+    max-width: 60px;
+  }
+
+  .sidebar {
+    padding: 0.5em 0;
+  }
+}
