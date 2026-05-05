@@ -8,36 +8,53 @@
 @import "minimal-mistakes";
 
 // =============================================
-// note.com / Zenn 風 日本語ブログカスタムスタイル
+// note.com (takashi39) 風 日本語ブログカスタムスタイル
 // =============================================
+
+// --- カラーパレット ---
+// 背景: #f5f5f5 (ページ全体), #fff (コンテンツ)
+// テキスト: #1a1a1a (メイン), #666 (サブ), #999 (メタ)
+// アクセント: #1a1a1a (ダークチャコール)
+// ボーダー: #e8e8e8 (薄グレー)
 
 // --- Noto Sans JP フォント ---
 body {
   font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN",
     "Hiragino Sans", "BIZ UDPGothic", Meiryo, sans-serif;
-  color: #1a1a2e;
+  background: #f5f5f5;
+  color: #1a1a1a;
   -webkit-font-smoothing: antialiased;
 }
 
-// --- マストヘッド（ヘッダー） note.com風 ---
+// --- マストヘッド（ヘッダー） ---
 .masthead {
-  border-bottom: 1px solid #e8ecef;
+  border-bottom: 1px solid #e8e8e8;
   background: #fff;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  box-shadow: none;
 }
 
 .site-title {
   font-weight: 900;
-  font-size: 1.15em;
-  letter-spacing: -0.03em;
-  color: #1a1a2e !important;
+  font-size: 1.1em;
+  letter-spacing: -0.02em;
+  color: #1a1a1a !important;
 }
 
 .masthead__menu-item a {
   font-size: 0.85em;
-  font-weight: 700;
+  font-weight: 600;
   color: #555 !important;
-  &:hover { color: #0066cc !important; }
+  &:hover { color: #1a1a1a !important; }
+}
+
+// --- コンテンツエリアを白カードに ---
+#main {
+  background: #fff;
+  border-radius: 4px;
+  padding: 2em 2.5em;
+  max-width: 860px;
+  margin: 1.5em auto;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
 }
 
 // --- ページヘッダー（記事タイトル部） ---
@@ -48,20 +65,20 @@ body {
 
 // --- ページタイトル（note.com風: 大きく・太く） ---
 .page__title {
-  font-size: 2em;
+  font-size: 1.9em;
   font-weight: 900;
-  line-height: 1.35;
+  line-height: 1.4;
   letter-spacing: -0.03em;
-  color: #1a1a2e;
+  color: #1a1a1a;
 }
 
 // --- 記事一覧ページタイトル ---
 .archive__subtitle {
-  font-size: 1.4em;
+  font-size: 1.3em;
   font-weight: 700;
-  border-bottom: 2px solid #0066cc;
+  border-bottom: 2px solid #1a1a1a;
   padding-bottom: 0.4em;
-  color: #1a1a2e;
+  color: #1a1a1a;
 }
 
 // --- 本文 ---
@@ -74,143 +91,153 @@ body {
     letter-spacing: 0.02em;
   }
 
-  // 見出し: note.com風（左ボーダー＋背景）
+  // 見出し: note.com風（シンプルなボーダーボトム）
   h2 {
-    margin-top: 2.5em;
-    padding: 0.5em 1em;
-    background: #f0f6ff;
-    border-left: 5px solid #0066cc;
-    font-size: 1.2em;
+    margin-top: 2.8em;
+    margin-bottom: 0.8em;
+    padding-bottom: 0.5em;
+    font-size: 1.25em;
     font-weight: 900;
-    color: #1a1a2e;
-    border-radius: 0 6px 6px 0;
+    color: #1a1a1a;
+    border-bottom: 2px solid #1a1a1a;
+    letter-spacing: -0.02em;
   }
 
   h3 {
     margin-top: 2em;
+    margin-bottom: 0.6em;
     font-size: 1.05em;
     font-weight: 700;
-    color: #1a1a2e;
-    padding-bottom: 0.35em;
-    border-bottom: 1px dashed #c8d8e8;
+    color: #1a1a1a;
+    padding-bottom: 0.3em;
+    border-bottom: 1px solid #e8e8e8;
+  }
+
+  h4 {
+    margin-top: 1.5em;
+    font-size: 0.95em;
+    font-weight: 700;
+    color: #333;
   }
 
   // 画像: 丸角・影（記事内グラフ）
   img {
-    border-radius: 10px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
     margin: 1.5em auto;
     display: block;
     max-width: 100%;
   }
 
-  // blockquote: note.com風
+  // blockquote: note.com風（グレー左ボーダー）
   blockquote {
-    border-left: 4px solid #0066cc;
-    background: #f8fbff;
-    border-radius: 0 8px 8px 0;
+    border-left: 3px solid #d0d0d0;
+    background: #fafafa;
+    border-radius: 0 4px 4px 0;
     padding: 0.8em 1.2em;
     font-size: 0.95em;
-    color: #444;
+    color: #555;
+    margin: 1.5em 0;
   }
 }
 
-// --- 金融データテーブル（Zenn風） ---
+// --- 金融データテーブル ---
 .page__content table {
   width: 100%;
   font-size: 0.88em;
   border-collapse: collapse;
-  border-radius: 10px;
+  border-radius: 6px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
   margin: 1.5em 0;
+  border: 1px solid #e8e8e8;
 
   thead tr {
-    background: #0066cc;
+    background: #1a1a1a;
     color: #fff;
     th {
       padding: 0.8em 1em;
       text-align: center;
       font-weight: 700;
       border: none;
-      letter-spacing: 0.03em;
+      letter-spacing: 0.02em;
     }
   }
 
   tbody {
-    tr:nth-child(even) { background: #f5f8ff; }
-    tr:hover { background: #e8f0fe; transition: background 0.15s; }
+    tr:nth-child(even) { background: #fafafa; }
+    tr:hover { background: #f0f0f0; transition: background 0.15s; }
     td {
       padding: 0.65em 1em;
-      border-bottom: 1px solid #e8eef5;
+      border-bottom: 1px solid #e8e8e8;
       text-align: center;
     }
     td:first-child {
       text-align: left;
       font-weight: 500;
-      color: #1a1a2e;
+      color: #1a1a1a;
     }
   }
 }
 
-// --- コードブロック（Zenn風） ---
+// --- コードブロック ---
 div.highlight, figure.highlight {
-  border-radius: 10px;
+  border-radius: 6px;
   font-size: 0.84em;
   line-height: 1.7;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-  border: 1px solid #e0e8f0;
+  box-shadow: none;
+  border: 1px solid #e8e8e8;
   margin: 1.5em 0;
 }
 
 code.highlighter-rouge {
   font-size: 0.84em;
   padding: 0.15em 0.5em;
-  border-radius: 5px;
-  background: #f0f6ff;
-  color: #0055bb;
-  border: 1px solid #d0e4f7;
+  border-radius: 4px;
+  background: #f2f2f2;
+  color: #333;
+  border: 1px solid #e0e0e0;
   font-weight: 500;
 }
 
 // --- 記事一覧カード（note.com風） ---
 .list__item {
-  padding: 1.8em 0;
-  border-bottom: 1px solid #edf1f5;
+  padding: 1.6em 0;
+  border-bottom: 1px solid #ebebeb;
 
   .archive__item-title {
-    font-size: 1.1em;
+    font-size: 1.05em;
     font-weight: 900;
-    line-height: 1.45;
+    line-height: 1.5;
     margin-bottom: 0.5em;
     letter-spacing: -0.01em;
     a {
-      color: #1a1a2e;
-      &:hover { color: #0066cc; text-decoration: none; }
+      color: #1a1a1a;
+      &:hover { color: #555; text-decoration: none; }
     }
   }
 
   .archive__item-excerpt {
-    font-size: 0.91em;
-    line-height: 1.8;
+    font-size: 0.9em;
+    line-height: 1.85;
     color: #666;
   }
 }
 
-// --- タグ・カテゴリバッジ（note.com風） ---
+// --- タグ・カテゴリバッジ ---
 .page__taxonomy-item {
-  background: #f0f6ff;
-  border: 1.5px solid #c8ddf7;
-  color: #0066cc;
+  background: #f2f2f2;
+  border: 1px solid #d8d8d8;
+  color: #555;
   border-radius: 20px;
-  font-size: 0.76em;
-  font-weight: 700;
+  font-size: 0.75em;
+  font-weight: 600;
   padding: 0.25em 0.9em;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.02em;
   &:hover {
-    background: #0066cc;
+    background: #1a1a1a;
     color: #fff;
-    border-color: #0066cc;
+    border-color: #1a1a1a;
     transition: all 0.2s;
   }
 }
@@ -219,42 +246,44 @@ code.highlighter-rouge {
 .author__name {
   font-weight: 700;
   font-size: 1.0em;
-  color: #1a1a2e;
+  color: #1a1a1a;
 }
 
 .author__bio {
   font-size: 0.82em;
-  line-height: 1.8;
+  line-height: 1.85;
   color: #555;
 }
 
 .author__urls a {
   font-size: 0.85em;
-  color: #0066cc;
+  color: #333;
   font-weight: 600;
+  &:hover { color: #1a1a1a; }
 }
 
-// --- 目次（Zenn風） ---
+// --- 目次 ---
 .toc {
-  border: 1.5px solid #d0e4f7;
-  border-radius: 10px;
-  background: #f8fbff;
-  box-shadow: 0 2px 8px rgba(0,66,204,0.06);
+  border: 1px solid #e8e8e8;
+  border-radius: 6px;
+  background: #fafafa;
+  box-shadow: none;
 
   .nav__title {
-    background: #0066cc;
+    background: #1a1a1a;
     color: #fff;
-    border-radius: 8px 8px 0 0;
+    border-radius: 5px 5px 0 0;
     font-size: 0.85em;
     font-weight: 700;
     padding: 0.5em 1em;
+    letter-spacing: 0.02em;
   }
 
   .toc__menu {
     font-size: 0.82em;
     a {
       color: #444;
-      &:hover { color: #0066cc; }
+      &:hover { color: #1a1a1a; }
     }
   }
 }
@@ -267,21 +296,35 @@ code.highlighter-rouge {
 
 // --- フッター ---
 .page__footer {
-  border-top: 1px solid #e8ecef;
-  background: #fafbfc;
+  border-top: 1px solid #e8e8e8;
+  background: #fafafa;
   font-size: 0.82em;
   color: #999;
 }
 
 // --- 関連記事 ---
 .page__related {
-  border-top: 2px solid #e8ecef;
+  border-top: 1px solid #e8e8e8;
   padding-top: 2em;
   margin-top: 2em;
 
   .archive__item-title a {
     font-weight: 700;
-    color: #1a1a2e;
-    &:hover { color: #0066cc; }
+    color: #1a1a1a;
+    &:hover { color: #555; }
+  }
+}
+
+// --- ページ分割ナビ ---
+.pagination--pager {
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 4px;
+  color: #333;
+  font-weight: 600;
+  &:hover {
+    background: #1a1a1a;
+    color: #fff;
+    border-color: #1a1a1a;
   }
 }
