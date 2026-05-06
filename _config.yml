@@ -21,10 +21,7 @@ author:
   name: "AIおやじ"
   avatar: "/assets/images/author-avatar.png"
   bio: "AIを使って暗号資産自動売買Botを開発・運用中のおやじ。失敗も含めてリアルな記録を発信しています。"
-  links:
-    - label: "GitHub"
-      icon: "fab fa-fw fa-github"
-      url: "https://github.com/mspj0123"
+  links: []
 
 # サイト全体のデフォルト設定
 defaults:
