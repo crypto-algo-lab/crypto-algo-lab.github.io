@@ -302,6 +302,11 @@ code.highlighter-rouge {
   }
 }
 
+// --- Followボタン非表示 ---
+.author__urls-wrapper {
+  display: none !important;
+}
+
 // --- 著者プロフィール ---
 .author__name {
   font-weight: 700;
