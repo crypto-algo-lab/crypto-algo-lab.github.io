@@ -7,9 +7,9 @@ categories: [レポート]
 tags: [EMA200, トレンドフィルター, Python]
 excerpt: "hybrid_boost_traderのトレンドフィルター足種を4時間足から2時間足EMA200に変更した実装ログ。"
 header:
-  teaser: /assets/images/trend-filter-pnl.png
-  overlay_image: /assets/images/trend-filter-pnl.png
-  overlay_filter: 0.4
+  teaser: /assets/images/thumb-trend-timing.png
+  overlay_image: /assets/images/thumb-trend-timing.png
+  overlay_filter: 0.3
 ---
 
 実装変更の記録としてログを残しておく。
