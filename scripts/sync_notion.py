@@ -52,9 +52,15 @@ def get_db_properties() -> dict:
 
 
 def get_all_pages() -> list[dict]:
-    """Notion DBの全ページを取得する（公開・非公開問わず）。"""
+    """Notion DBから暗号資産自動取引プロジェクトのページを取得する（公開・非公開問わず）。"""
     url = f"https://api.notion.com/v1/databases/{NOTION_DATABASE_ID}/query"
-    payload = {"sorts": [{"property": "公開日", "direction": "descending"}]}
+    payload = {
+        "sorts": [{"property": "公開日", "direction": "descending"}],
+        "filter": {
+            "property": "プロジェクト",
+            "relation": {"contains": NOTION_PROJECT_ID},
+        },
+    }
     results = []
     while True:
         resp = requests.post(url, headers=HEADERS, json=payload, timeout=30)
@@ -248,10 +254,9 @@ def main():
         notion_ids_in_db.add(page_id)
 
         published = is_published(props)
-        target = is_target_project(props)
         existing_path = local_notion_files.get(page_id)
 
-        if not target or not published:
+        if not published:
             if existing_path and os.path.exists(existing_path):
                 os.remove(existing_path)
                 print(f"  削除（非公開化）: {os.path.basename(existing_path)}")
