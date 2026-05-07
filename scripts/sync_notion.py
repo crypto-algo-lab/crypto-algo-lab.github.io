@@ -50,7 +50,7 @@ def get_db_properties() -> dict:
 def get_all_pages() -> list[dict]:
     """Notion DBの全ページを取得する（公開・非公開問わず）。"""
     url = f"https://api.notion.com/v1/databases/{NOTION_DATABASE_ID}/query"
-    payload = {"sorts": [{"property": "日付", "direction": "descending"}]}
+    payload = {"sorts": [{"property": "公開日", "direction": "descending"}]}
     results = []
     while True:
         resp = requests.post(url, headers=HEADERS, json=payload, timeout=30)
