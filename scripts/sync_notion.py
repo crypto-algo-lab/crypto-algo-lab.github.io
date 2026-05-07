@@ -29,6 +29,10 @@ NOTION_TOKEN = os.environ.get("NOTION_TOKEN", "")
 NOTION_DATABASE_ID = os.environ.get(
     "NOTION_DATABASE_ID", "a698ec5e-99c7-442b-a4bf-af8b2c4dfe51"
 )
+# 同期対象プロジェクトID（暗号資産自動取引）
+NOTION_PROJECT_ID = os.environ.get(
+    "NOTION_PROJECT_ID", "3548f0b7-804f-81e3-bee5-ed278068c2f6"
+)
 POSTS_DIR = os.path.join(os.path.dirname(__file__), "..", "_posts")
 
 HEADERS = {
@@ -131,10 +135,28 @@ def get_prop(props: dict, key: str) -> str:
     return ""
 
 
-def is_published(props: dict, **kwargs) -> bool:
+def get_relation_ids(props: dict, key: str) -> list[str]:
+    """リレーションプロパティからページIDのリストを取得する。"""
+    prop = props.get(key, {})
+    if prop.get("type") != "relation":
+        return []
+    return [r["id"] for r in prop.get("relation", [])]
+
+
+def is_published(props: dict) -> bool:
     """ステータスが「公開準備」または「公開済」の場合に公開と判定する。"""
     status = get_prop(props, "ステータス")
     return status in ("公開準備", "公開済")
+
+
+def is_target_project(props: dict) -> bool:
+    """プロジェクト列に暗号資産自動取引が含まれているか判定する。"""
+    if not NOTION_PROJECT_ID:
+        return True
+    relation_ids = get_relation_ids(props, "プロジェクト")
+    # ハイフンあり・なし両方に対応
+    normalized = NOTION_PROJECT_ID.replace("-", "")
+    return any(rid.replace("-", "") == normalized for rid in relation_ids)
 
 
 # ===== ローカルファイル管理 =====
@@ -226,10 +248,10 @@ def main():
         notion_ids_in_db.add(page_id)
 
         published = is_published(props)
+        target = is_target_project(props)
         existing_path = local_notion_files.get(page_id)
 
-        if not published:
-            # 非公開: ファイルが存在すれば削除
+        if not target or not published:
             if existing_path and os.path.exists(existing_path):
                 os.remove(existing_path)
                 print(f"  削除（非公開化）: {os.path.basename(existing_path)}")
