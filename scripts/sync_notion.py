@@ -158,8 +158,8 @@ def scan_notion_posts() -> dict[str, str]:
     return result
 
 
-def page_to_post(page: dict) -> tuple[str, str] | None:
-    """Notionページ → (ファイル名, Markdownコンテンツ)"""
+def page_to_post(page: dict) -> tuple[str, str, str] | None:
+    """Notionページ → (ファイル名, Markdownコンテンツ, 本文)"""
     props = page.get("properties", {})
     title = get_prop(props, "タイトル")
     if not title:
@@ -198,7 +198,7 @@ def page_to_post(page: dict) -> tuple[str, str] | None:
 
     content = front_matter + body
     filename = f"{date_str}-{slugify(title)}.md"
-    return filename, content
+    return filename, content, body
 
 
 # ===== メイン処理 =====
@@ -244,7 +244,7 @@ def main():
             skipped += 1
             continue
 
-        filename, content = result
+        filename, content, body = result
         filepath = os.path.join(POSTS_DIR, filename)
 
         # 既存ファイルと内容比較
