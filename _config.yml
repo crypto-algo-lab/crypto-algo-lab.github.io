@@ -1,7 +1,7 @@
 title: "おやじのAI投資ラボ"
 description: "AIを活用した暗号資産自動売買Botの開発・運用記録 — 試行錯誤しながらコツコツ改良中"
-baseurl: "/crypto-algo-lab-blog"
-url: "https://mspj0123.github.io"
+baseurl: ""
+url: "https://crypto-algo-lab.github.io"
 lang: ja
 
 remote_theme: "mmistakes/minimal-mistakes@4.26.2"
