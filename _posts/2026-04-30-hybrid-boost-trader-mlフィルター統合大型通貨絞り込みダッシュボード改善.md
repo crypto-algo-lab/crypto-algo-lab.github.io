@@ -4,40 +4,9 @@ title: "[hybrid_boost_trader] MLフィルター統合・大型通貨絞り込み
 date: 2026-04-30
 notion_id: 3578f0b7-804f-81ce-9911-da8c49c26521
 categories: [レポート]
-tags: [LightGBM, Python, ダッシュボード, 最適化]
+tags: []
 excerpt: "LightGBMフィルター統合・対象通貨を大型5ペアに絞り込み・ダッシュボードの視認性改善をまとめて実施した記録。"
-header:
-  teaser: /assets/images/thumb-ml-dashboard.png
-  overlay_image: /assets/images/thumb-ml-dashboard.png
-  overlay_filter: 0.3
 ---
 
-このバージョンでの主な変更点を3つまとめて記録しておく。
+LightGBMフィルター統合・対象通貨を大型5ペアに絞り込み・ダッシュボードの視認性改善をまとめて実施した記録。
 
-## 1. LightGBMフィルター統合
-
-勝率を上げるため、エントリーシグナルにLightGBMの予測スコアフィルターを追加した。
-スコア0.55以上のシグナルのみエントリー対象とする。
-
-![MLフィルター 勝率比較]({{ '/assets/images/ml-filter-winrate.png' | relative_url }})
-
-フィルター導入後の勝率は87.5%まで改善。
-
-## 2. 対象通貨を大型5ペアに絞り込み
-
-流動性の低いアルトコインはスリッページが大きく、バックテストと実運用の乖離が激しかった。
-BTC / ETH / XRP / SOL / AVAX の5ペアに絞ることで安定性が増した。
-
-## 3. ダッシュボード改善
-
-リアルタイム監視用ダッシュボードのレイアウトを見直した。
-主な変更：
-- 損益グラフを見やすいサイズに拡大
-- アクティブポジション一覧を常時表示
-- エラーログをリアルタイムで確認できるセクションを追加
-
-## ウォークフォワード検証結果
-
-![ウォークフォワード検証結果]({{ '/assets/images/walkforward-result.png' | relative_url }})
-
-過学習の懸念もあったが、直近データを除いた検証でも良好な結果が出ている。
